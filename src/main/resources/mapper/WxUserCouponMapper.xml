@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qsn.spring.generator.mapper.WxUserCouponMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qsn.spring.generator.entity.WxUserCoupon">
+        <id column="id" property="id"/>
+        <result column="stock_id" property="stockId"/>
+        <result column="appid" property="appid"/>
+        <result column="open_id" property="openId"/>
+        <result column="wx_nick_name" property="wxNickName"/>
+        <result column="coupon_id" property="couponId"/>
+        <result column="coupon_name" property="couponName"/>
+        <result column="is_singleitem" property="isSingleitem"/>
+        <result column="coupon_type" property="couponType"/>
+        <result column="create_type" property="createType"/>
+        <result column="transaction_id" property="transactionId"/>
+        <result column="stock_creator_mchid" property="stockCreatorMchid"/>
+        <result column="consume_mchid" property="consumeMchid"/>
+        <result column="coupon_amount" property="couponAmount"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="consume_time" property="consumeTime"/>
+        <result column="activity_id" property="activityId"/>
+        <result column="wft_mch_id" property="wftMchId"/>
+        <result column="total_fee" property="totalFee"/>
+        <result column="pay_syn" property="paySyn"/>
+        <result column="syn_time" property="synTime"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, stock_id, appid, open_id, wx_nick_name, coupon_id, coupon_name, is_singleitem, coupon_type, create_type,
+        transaction_id, stock_creator_mchid, consume_mchid, coupon_amount, status, create_time, consume_time,
+        activity_id, wft_mch_id, total_fee, pay_syn, syn_time
+    </sql>
+
+    <!-- 分页 -->
+    <select id="page" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT id, stock_id, appid, open_id, wx_nick_name, coupon_id, coupon_name, is_singleitem, coupon_type, create_type, transaction_id, stock_creator_mchid, consume_mchid, coupon_amount, status, create_time, consume_time, activity_id, wft_mch_id, total_fee, pay_syn, syn_time
+        FROM wx_user_coupon
+        ]]>
+    </select>
+
+    <!-- 集合 -->
+    <select id="list" resultMap="BaseResultMap">
+        <![CDATA[
+        SELECT id, stock_id, appid, open_id, wx_nick_name, coupon_id, coupon_name, is_singleitem, coupon_type, create_type, transaction_id, stock_creator_mchid, consume_mchid, coupon_amount, status, create_time, consume_time, activity_id, wft_mch_id, total_fee, pay_syn, syn_time
+        FROM wx_user_coupon
+        ]]>
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO wx_user_coupon
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            stock_id,
+            appid,
+            open_id,
+            wx_nick_name,
+            coupon_id,
+            coupon_name,
+            is_singleitem,
+            coupon_type,
+            create_type,
+            transaction_id,
+            stock_creator_mchid,
+            consume_mchid,
+            coupon_amount,
+            status,
+            create_time,
+            consume_time,
+            activity_id,
+            wft_mch_id,
+            total_fee,
+            pay_syn,
+            syn_time,
+        </trim>
+        <trim prefix=" VALUES (" suffix=")" suffixOverrides=",">
+            #{stockId},
+            #{appid},
+            #{openId},
+            #{wxNickName},
+            #{couponId},
+            #{couponName},
+            #{isSingleitem},
+            #{couponType},
+            #{createType},
+            #{transactionId},
+            #{stockCreatorMchid},
+            #{consumeMchid},
+            #{couponAmount},
+            #{status},
+            #{createTime},
+            #{consumeTime},
+            #{activityId},
+            #{wftMchId},
+            #{totalFee},
+            #{paySyn},
+            #{synTime},
+        </trim>
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        UPDATE wx_user_coupon SET
+        <trim suffixOverrides=",">
+            stock_id=#{stockId},
+            appid=#{appid},
+            open_id=#{openId},
+            wx_nick_name=#{wxNickName},
+            coupon_id=#{couponId},
+            coupon_name=#{couponName},
+            is_singleitem=#{isSingleitem},
+            coupon_type=#{couponType},
+            create_type=#{createType},
+            transaction_id=#{transactionId},
+            stock_creator_mchid=#{stockCreatorMchid},
+            consume_mchid=#{consumeMchid},
+            coupon_amount=#{couponAmount},
+            status=#{status},
+            create_time=#{createTime},
+            consume_time=#{consumeTime},
+            activity_id=#{activityId},
+            wft_mch_id=#{wftMchId},
+            total_fee=#{totalFee},
+            pay_syn=#{paySyn},
+            syn_time=#{synTime},
+        </trim>
+        <![CDATA[
+        WHERE id=#{id}
+        ]]>
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete">
+        <![CDATA[
+        DELETE FROM wx_user_coupon
+        WHERE id=#{id}
+        ]]>
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,54 @@
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/my_test?useUnicode=true&autoReconnect=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: root
+
+    #mongodb 这里一定要用每个手动敲空格， 否则配置文件读取失败; mongo2.x支持以上两种配置方式 #mongo3.x仅支持uri方式
+    #mongodb使用注意事项： 若什么都没传， 入了一个空对象，  mongodb不会帮你过滤， 他也会存一个空的对象
+    data:
+        mongodb:
+            uri: mongodb://127.0.0.1:27017/my_mongo
+
+     # jackson设置
+    jackson:
+        #日期格式化
+        date-format: "yyyy-MM-dd HH:mm:ss"
+        #spring.jackson.date-format=yyyy-MM-dd
+        #格式化输出
+        serialization.indent_output: true
+        #忽略无法转换的对象
+        serialization.fail_on_empty_beans: false
+        #设置空如何序列化
+        defaultPropertyInclusion: non_null
+        #允许对象忽略json中不存在的属性
+        deserialization.fail_on_unknown_properties: false
+        #允许出现特殊字符和转义符
+        parser.allow_unquoted_control_chars: true
+        #允许出现单引号
+        parser.allow_single_quotes: true
+
+mybatis-plus:
+    type-aliases-package: com.qsn.spring.generator.entity
+    mapper-locations: classpath*:mapper/**/*.xml
+    check-config-location: false
+    # mybatis 的原生配置
+    configuration:
+        cache-enabled : false
+        call-setters-on-nulls: true
+        use-generated-keys: true
+    # MyBatis-Plus 全局策略配置
+    global-config:
+    # MyBatis-Plus 全局策略中的 DB 策略配置
+        banner: false # 是否显示mybatis-plus的图标
+
+server:
+    tomcat:
+        uri-encoding: utf-8
+    servlet:
+      context-path: /test
+    port: 8083
+

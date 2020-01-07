@@ -1,0 +1,163 @@
+spring:
+    # mysql 数据源
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/my_test?useUnicode=true&autoReconnect=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+        username: root
+        password: root
+
+    # 避免某个配置类重复定义，允许覆盖； 例如自定义mybatis-config配置信息
+    # 如果还不行就在启动类上 @SpringBootApplication(exclude={DruidDataSourceAutoConfigure.class}) 像这样排除某个配置来自己定义
+    main:
+        allow-bean-definition-overriding: true
+
+    # jackson设置
+    jackson:
+        #日期格式化
+        date-format: "yyyy-MM-dd HH:mm:ss"
+        #spring.jackson.date-format=yyyy-MM-dd
+        #格式化输出
+        serialization.indent_output: true
+        #忽略无法转换的对象
+        serialization.fail_on_empty_beans: false
+        #设置空如何序列化
+        defaultPropertyInclusion: non_null
+        #允许对象忽略json中不存在的属性
+        deserialization.fail_on_unknown_properties: false
+        #允许出现特殊字符和转义符
+        parser.allow_unquoted_control_chars: true
+        #允许出现单引号
+        parser.allow_single_quotes: true
+
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+    port: 8082
+    servlet:
+        context-path: /test
+        # session 生命周期
+        session: 30m
+renren:
+    # Redis配置
+    redis:
+        open: false  # 是否开启redis缓存  true开启   false关闭
+        host: 127.0.0.1
+        port: 6379
+
+#mybatis-plus
+mybatis-plus:
+    #搜索指定包别名 多个package用逗号或者分号分隔
+    type-aliases-package: com.qsn.spring.generator.entity
+    #配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapper-locations: classpath*:mapper/**/*.xml
+    #项目启动会检查xml配置存在(只在开发时候打开)
+    check-config-location: false
+    # mybatis 的原生配置
+    configuration:
+        # 这个配置使全局的映射器启用或禁用缓存; 须要在Mapper文件里也指定 cache 标签才会真正使用缓存
+        cache-enabled : false
+        # 查询结果中包含空值的列： true返回null; false不返回该字段;（需要 mybatis jar包3.2.0以上的版本才支持）: 暂时不生效，不知具体原因
+        call-setters-on-nulls: true
+        # 在执行添加记录之后可以获取到数据库自动生成的主键ID; 若没有此配置， 在xml里面自行配置[useGeneratedKeys="true"]也可以, 但是 keyProperty="id"  keyColumn="id" 一定要写
+        use-generated-keys: true
+        # 打印执行的sql详细信息， 调试用; StdOutImpl只在控制台输出（system.out.println("xxx")），而Slf4jImpl是输出到log日志文件上的(log.info("xxx"))
+        # 大家如果想在log日志上打印sql，就不要去配置 StdOutImpl实现类了。
+#        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # MyBatis-Plus 全局策略配置
+    global-config:
+    # MyBatis-Plus 全局策略中的 DB 策略配置
+#        db-config:
+#            id-type: auto # 全局默认主键类型，AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+#            field-strategy: not_null # 字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+#            logic-delete-value: -1 # 逻辑已删除值,(逻辑删除下有)
+#            logic-not-delete-value: 0 # 逻辑未删除值,(逻辑删除下有效)
+        # 是否显示mybatis-plus的图标
+        banner: false
+
+##pagehelper分页配置
+#pagehelper:
+#    helper-dialect: mysql
+#    reasonable: true
+#    support-methods-arguments: true
+#    params: count=countSql
+
+#日志配置(这里使用的是log4j2； logging配置:默认是logback使用， 使用其他日志如： log4j、 log4j2 需要排除 logback, 但日志配置名还是“logging”)
+logging:
+    #权重
+    level:
+        #输出级别
+        root: INFO
+        #showSql； 某包下的日志以 DEBUG 级别输出
+        com.qsn.spring.generator.mapper : DEBUG
+    #输出路径(logback用法)
+    file: src/log/logProperties/log4j.log
+    #日志输出格式
+    pattern:
+        #控制台格式
+        console: "%d{yyyy/MM/dd HH:mm:ss} [%thread] %-5level %logger- %msg%n"
+        #日志文件格式
+        file: "%d{yyyy/MM/dd HH:mm} [%thread] %-5level %logger- %msg%n"
+
+#缓存全局配置
+jetcache:
+    #jetcache-anno使用缓存名称作为远程缓存密钥前缀，在jetcache 2.4.3
+    #和之前的版本中，它总是在缓存名称中添加区域名称，从2.4.4开始我们有这
+    #个配置项，为兼容原因，默认值为true。然而，虚假价值对于新项目更合理。
+    areaInCacheName: false
+    #统计间隔（控制台打印报表时间，单位：分钟），0表示不统计
+    statIntervalMinutes: 10
+    #@Cached和@CreateCache自动生成name的时候，为了不让name太长，hiddenPackages指定的包名前缀被截掉
+    #包名称以（hiddenPackages）开始的将在生成的缓存实例名称中被截断
+    hiddenPackages: com.qsn
+    local:
+        default:
+            #后端缓存系统的类型
+            #远程缓存:tair（未在github开源），redis
+            #本地缓存:linkedHashMap，caffeine。
+            type: caffeine
+            #每个Cache实例的本地内存中的最大限制数。只有本地缓存​​需要它。
+            limit: 50
+            defaultExpireInMillis: 300000
+            #指定密钥转换器。用于转换复杂的密钥对象。
+            #JetCache内置版本keyConvertor： NONE与 fastJson
+            #NONE :NONE表示不转换，
+            #fastjson :将使用 fastJson 将key对象转换为字符串。如果缺少属性值，请使用全局配置。
+            keyConvertor: fastjson
+            #写入的全局配置到期时间，以毫秒为单位。
+            expireAfterWriteInMillis: 100000
+            #读取的全局配置到期时间，以毫秒为单位。 #0表示禁用读取过期功能
+            expireAfterAccessInMillis: 100000
+        otherArea:
+              type: linkedhashmap
+              limit: 100
+              keyConvertor: none
+              expireAfterWriteInMillis: 100000
+              expireAfterAccessInMillis: 100000
+
+    remote:
+        default:
+            type: redis
+            keyConvertor: fastjson
+            #全局配置值编码器只需要远程缓存。两个内置valueEncoder是java和kryo
+            valueEncoder: java
+            #全局配置值编码器只需要远程缓存。两个内置valueEncoder是java和kryo
+            poolConfig:
+                minIdle: 5
+                maxIdle: 50
+                maxTotal: 100
+            host: 127.0.0.1
+            port: 6379
+#            password: qiusn@123
+            defaultExpireInMillis: 300000
+            keyPrefix: com-qiu-NB-plus-goto-ok-
+
+
+
+
+
+
+
+
