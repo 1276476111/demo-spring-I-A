@@ -65,17 +65,17 @@ public class FiveNoticesAop {
         Object result = null;
         try {
             // 前置通知
-            System.err.println(++step + "@Around目标方法" + methodName + "开始，参数为" + Arrays.asList(pjp.getArgs()));
+            System.out.println(++step + "@Around目标方法" + methodName + "开始，参数为" + Arrays.asList(pjp.getArgs()));
             // 执行目标方法
             result = pjp.proceed();
             // 返回通知
-            System.err.println(++step + "@Around目标方法" + methodName + "执行成功，返回" + result);
+            System.out.println(++step + "@Around目标方法" + methodName + "执行成功，返回" + result);
         } catch (Throwable e) {
             // 异常通知
-            System.err.println(++step + "@Around目标方法" + methodName + "抛出异常: " + e.getMessage());
+            System.out.println(++step + "@Around目标方法" + methodName + "抛出异常: " + e.getMessage());
         }
         // 后置通知
-        System.err.println(++step + "@Around目标方法" + methodName + "结束");
+        System.out.println(++step + "@Around目标方法" + methodName + "结束");
         return result;
     }
 
@@ -84,7 +84,7 @@ public class FiveNoticesAop {
      */
     @Before("operation()")
     public void doBeforeTask() {
-        System.err.println(++step + " 前置通知");
+        System.out.println(++step + " 前置通知");
     }
 
     /**
@@ -93,7 +93,7 @@ public class FiveNoticesAop {
     @After("operation()")
     public void
     doAfterTask() {
-        System.err.println(++step + " 后置通知");
+        System.out.println(++step + " 后置通知");
     }
 
     /**
@@ -101,7 +101,7 @@ public class FiveNoticesAop {
      */
     @AfterReturning(pointcut = "operation()", returning = "retVal")
     public void doAfterReturningTask(Object retVal) {
-        System.err.println(++step + " 返回通知，返回值为：" + retVal.toString());
+        System.out.println(++step + " 返回通知，返回值为：" + retVal.toString());
     }
 
     /**
@@ -109,6 +109,6 @@ public class FiveNoticesAop {
      */
     @AfterThrowing(pointcut = "operation()", throwing = "ex")
     public void doAfterThrowingTask(Exception ex) {
-        System.err.println(++step + " 异常通知，异常信息为：" + ex.getMessage());
+        System.out.println(++step + " 异常通知，异常信息为：" + ex.getMessage());
     }
 }
