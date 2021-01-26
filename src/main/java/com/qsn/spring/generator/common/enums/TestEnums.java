@@ -93,7 +93,8 @@ public interface TestEnums {
     }
 
     public static void main(String[] args){
-//        String value = TestEnums.USER_SEX.SEX_WOMAN.getValueByKey(3);
+        String value = TestEnums.USER_SEX.getValueByKey(2);
+        System.out.println(value);
 
     }
 
