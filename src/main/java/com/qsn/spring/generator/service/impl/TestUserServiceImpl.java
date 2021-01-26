@@ -36,7 +36,7 @@ public class TestUserServiceImpl implements TestUserService {
         System.err.println("枚举1：" + TestEnums.USER_SEX.values());
         System.err.println("枚举2：" + TestEnums.USER_SEX.SEX_MAN);
         System.err.println("枚举3：" + TestEnums.USER_SEX.SEX_MAN.item().getKey());
-        System.err.println("枚举4：" + TestEnums.USER_SEX.SEX_MAN.item().getName());
+        System.err.println("枚举4：" + TestEnums.USER_SEX.SEX_MAN.item().getValue());
         System.err.println("枚举5：" + TestEnums.USER_SEX.SEX_MAN.item().toString());
 
 

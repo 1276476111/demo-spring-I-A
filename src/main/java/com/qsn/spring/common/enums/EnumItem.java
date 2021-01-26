@@ -15,10 +15,10 @@ public class EnumItem<T extends Serializable> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final T key;
-    private final String name;
+    private final String value;
 
-    public EnumItem(T key, String name) {
+    public EnumItem(T key, String value) {
         this.key = key;
-        this.name = name;
+        this.value = value;
     }
 }

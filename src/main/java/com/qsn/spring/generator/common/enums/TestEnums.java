@@ -1,8 +1,10 @@
 package com.qsn.spring.generator.common.enums;
 
 
+import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import com.qsn.spring.common.enums.EnumItem;
 import com.qsn.spring.common.enums.IEnum;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * 自定义枚举
@@ -27,20 +29,88 @@ public interface TestEnums {
 
         SEX_MAN(1, "男"),
         SEX_WOMAN(2, "女"),
-        SEX_LADYBOY(3, "不男不女"),;
+        SEX_LADY_BOY(3, "不男不女"),;
+
 
         private EnumItem<Integer> item;
+
 
         USER_SEX(int type, String name) {
             this.item = new EnumItem<>(type, name);
         }
+
 
         @Override
         public EnumItem<Integer> item() {
             return this.item;
         }
 
+//        @Override
+//        public String getValueByKey(int key){
+//            for (USER_SEX s : USER_SEX.values()) {
+//                if(s.item().getKey()==key){
+//                    return s.item.getValue();
+//                }
+//            }
+//            return "";
+//        }
+//
+//        @Override
+//        public int getKeyByValue(String value){
+//            if(StringUtils.isBlank(value)){
+//                throw new ApiException("value不能为空");
+//            }
+//            for (USER_SEX s : USER_SEX.values()) {
+//                if(value.equals(s.item.getValue())){
+//                    return s.item.getKey();
+//                }
+//            }
+//            return 0;
+//        }
+
+        public static String getValueByKey(int key){
+            for (USER_SEX s : USER_SEX.values()) {
+                if(s.item().getKey()==key){
+                    return s.item.getValue();
+                }
+            }
+            return "";
+        }
+
+        public static int getKeyByValue(String value){
+            if(StringUtils.isBlank(value)){
+                throw new ApiException("value不能为空");
+            }
+            for (USER_SEX s : USER_SEX.values()) {
+                if(value.equals(s.item.getValue())){
+                    return s.item.getKey();
+                }
+            }
+            return 0;
+        }
+
+
     }
+
+    public static void main(String[] args){
+//        String value = TestEnums.USER_SEX.SEX_WOMAN.getValueByKey(3);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
