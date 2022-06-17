@@ -52,7 +52,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>1.2.83</version>
         </dependency>
         <!-- 使用 json 格式配置文件（例如：1.@JsonInclude 结果集为null字段是否显示 2.log4j2的配置）  -->
         <dependency>
